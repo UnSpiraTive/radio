@@ -30,7 +30,7 @@ testem.log
 .DS_Store
 
 ### Less ###
-*.css
+*.less
 
 ### Node ###
 # Logs
