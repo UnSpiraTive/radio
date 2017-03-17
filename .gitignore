@@ -29,9 +29,6 @@ testem.log
 #System Files
 .DS_Store
 
-### Less ###
-*.less
-
 ### Node ###
 # Logs
 logs

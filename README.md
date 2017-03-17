@@ -1,2 +1,3 @@
 # radio
-radiowezel MEAN STACK
+radiowezel at MEAN STACK
+Projekt grupy L2P2
