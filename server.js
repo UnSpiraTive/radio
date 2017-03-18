@@ -4,6 +4,11 @@ let express = require('express'),
     path = require('path'),
     bodyParser = require('body-parser');
 
+// ================================Custom Importe
+let dbCon         = require('./backend/dbConnections'),
+    getNews       = require('./backend/getNews');
+
+
 // ================================Variable section
 let app = express(),
 port = process.env.PORT || 8080,        // set our port
@@ -23,10 +28,18 @@ router.use((req, res, next)=>{
 });
 
 router.get('/', (req,res)=>{
-  // console.log("aaa");
-  // res.send('Hello world')
   // res.json({message: 'Witaj moj drogi przyjacielu!'});
     res.sendFile(path.join(__dirname + "/public/index.html"));
+
+    //MYSQL Query
+    // getNews.news.getAllNews((res)=>{
+    //   console.log(res);
+    // });
+
+    let newsInstant = new getNews(dbCon.mysqlConnect)
+    newsInstant.getAllNews((res)=>{
+    console.log(res[0].n_id);
+    });
 });
 
 app.use('/', router);
