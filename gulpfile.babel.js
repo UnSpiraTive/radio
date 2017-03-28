@@ -22,7 +22,7 @@ gulp.task('develop', () => {
         nodemon({
           script: 'server.js',
           "execMap": {
-              "js": "nodejs",
+              "js": "node",
         }
         })
         .on('restart', () => {

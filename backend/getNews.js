@@ -1,6 +1,4 @@
-let dbCon         = require('./dbConnections');
-
-class News {
+class getNews {
 
   constructor(dbConnections) {
     this.dbCon = dbConnections;
@@ -34,7 +32,7 @@ class News {
         tempCon.release();
         return -1;
       }else{
-        tempCon.query("SELECT * FROM news WHERE n_id = " + this.id , (er, rows, fields) => {
+        tempCon.query("SELECT * FROM news WHERE n_id = " + this.dbCon.escape(this.id) , (er, rows, fields) => {
             if(er){
               tempCon.release();
               return -1;
@@ -46,10 +44,21 @@ class News {
       }
     });
   }
+
+  addNews(tabOfData, callback){
+    this.tab = tabOfData;
+      this.dbCon.getConnection((er, tempCon)=>{
+        if(er){
+          tempCon.release();
+          return -1;
+        }else {
+          tempCon.query("INSERT INTO news (" + this.dbCon.escape(this.tab[1]) + ")", (er,row, fields) =>{
+            
+          })
+        }
+      });
+  }
 }
 
-
-
-
 // =======================Module exports
-module.exports = News;
+module.exports = getNews;
