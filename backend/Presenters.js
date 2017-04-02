@@ -53,6 +53,7 @@ addPresenter(tabOfPresenterData, callback){
         )
       });
     });
+  }
 // t[0] -> p_id | t[1] -> p_avater | t[2] -> p_name | t[3] -> p_count
     updatePresenter(tabOfData, callback){
       this.tabOfData = tabOfData;
