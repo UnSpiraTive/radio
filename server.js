@@ -8,12 +8,14 @@ let express = require('express'),
 let ErrorClass    = require('./backend/ErrorClass'),
     dbCon         = require('./backend/dbConnections'),
     News          = require('./backend/News'),
-    Presenters    = require('./backend/Presenters');
+    Presenters    = require('./backend/Presenters'),
+    Proposition   = require('./backend/Proposition');
 
 // ================================Class def
 let errClass  = new ErrorClass(dbCon.mysqlConnect),
     newsInstant = new News(dbCon.mysqlConnect, errClass),
-    presentersInstant  = new Presenters(dbCon.mysqlConnect, errClass);
+    presentersInstant  = new Presenters(dbCon.mysqlConnect, errClass),
+    propositionInstant  = new Proposition(dbCon.mysqlConnect, errClass);
 
 
 

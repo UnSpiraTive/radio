@@ -8,7 +8,7 @@ class Presenters {
 
 getAllPresenters(callback){
   this.dbCon.getConnection((er,tempCon)=>{
-    (er) ? this.errClass.mysqlError(er, tempCon) : tempCon.query("SELECT * FROM prezenterzy", (er, rows, fields)=>{
+    (er) ? this.errClass.mysqlError(er, tempCon) : tempCon.query("SELECT * FROM prezenterzy ORDER BY p_count DESC", (er, rows, fields)=>{
         (er) ? this.errClass.mysqlError(er, tempCon) : (
           tempCon.release(),
           callback(rows)
