@@ -1,4 +1,4 @@
-class getPresenters {
+class Presenters {
   constructor(dbConnections) {
     this.dbCon = dbConnections;
   }
@@ -28,4 +28,4 @@ getAllPresenters(callback){
 
 
 
-module.exports = getPresenters;
+module.exports = Presenters;

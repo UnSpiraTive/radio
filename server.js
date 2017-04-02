@@ -5,8 +5,15 @@ let express = require('express'),
     bodyParser = require('body-parser');
 
 // ================================Custom Importe
-let dbCon         = require('./backend/dbConnections'),
-    getNews       = require('./backend/getNews');
+let ErrorClass    = require('./backend/ErrorClass'),
+    dbCon         = require('./backend/dbConnections'),
+    News          = require('./backend/News');
+
+// ================================Class def
+let errClass  = new ErrorClass(dbCon.mysqlConnect),
+    newsInstant = new News(dbCon.mysqlConnect, errClass);
+
+
 
 
 // ================================Variable section
@@ -31,11 +38,10 @@ router.get('/', (req,res)=>{
     res.sendFile(path.join(__dirname + "/public/index.html"));
 
     //MYSQL Query
-
-    let newsInstant = new getNews(dbCon.mysqlConnect)
     newsInstant.getChoosenNews(3,(res)=>{
       console.log(res);
     });
+    // newsInstant.addNews([10,15,13], ()=>{});
     // newsInstant.getAllNews((res)=>{
     // console.log(res[0]);
     // });
