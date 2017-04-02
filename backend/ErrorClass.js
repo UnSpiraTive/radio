@@ -7,7 +7,7 @@ class ErrorClass {
   mysqlError(info, tempCon){
     this.info = info;
     tempCon.release();
-    console.log('pff');
+    console.log('Blad' + info);
     return -1;
   }
 

@@ -73,7 +73,7 @@ getAllNews(callback){
   addNews(newsText, callback){
     this.newsText = newsText;
     this.dbCon.getConnection((er, tempCon)=>{
-        (er) ? this.errClass.mysqlError(er, tempCon) : tempCon.query("INSERT INTO news (" + this.dbCon.escape(this.newsText) + ")", (er,result) =>{
+        (er) ? this.errClass.mysqlError(er, tempCon) : tempCon.query("INSERT INTO news (n_tresc) VALUES (" + this.dbCon.escape(this.newsText) + ")", (er,result) =>{
             (er) ? this.errClass.mysqlError(er, tempCon) : (
               tempCon.release(),
               callback(result)

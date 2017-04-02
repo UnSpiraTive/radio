@@ -7,11 +7,13 @@ let express = require('express'),
 // ================================Custom Importe
 let ErrorClass    = require('./backend/ErrorClass'),
     dbCon         = require('./backend/dbConnections'),
-    News          = require('./backend/News');
+    News          = require('./backend/News'),
+    Presenters    = require('./backend/Presenters');
 
 // ================================Class def
 let errClass  = new ErrorClass(dbCon.mysqlConnect),
-    newsInstant = new News(dbCon.mysqlConnect, errClass);
+    newsInstant = new News(dbCon.mysqlConnect, errClass),
+    presentersInstant  = new Presenters(dbCon.mysqlConnect, errClass);
 
 
 
@@ -39,6 +41,10 @@ router.get('/', (req,res)=>{
 
     //MYSQL Query
     newsInstant.getChoosenNews(3,(res)=>{
+      console.log(res);
+    });
+
+    presentersInstant.addPresenter([0, 'jakis', 'roloslaw', 2], (res) =>{
       console.log(res);
     });
     // newsInstant.addNews([10,15,13], ()=>{});
