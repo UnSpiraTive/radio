@@ -8,7 +8,7 @@ class ErrorClass {
     this.info = info;
     tempCon.release();
     console.log('Blad' + info);
-    return -1;
+    return info;
   }
 
 

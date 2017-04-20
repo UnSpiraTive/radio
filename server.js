@@ -7,7 +7,11 @@ let express = require('express'),
     jwt        = require('jsonwebtoken');
 
 // ================================Custom Importe
-let ErrorClass    = require('./backend/ErrorClass'),
+let index         = require('./routers/index'),
+    news          = require('./routers/news'),
+    proposition   = require('./routers/proposition'),
+    presenters    = require('./routers/presenters'),
+    ErrorClass    = require('./backend/ErrorClass'),
     dbCon         = require('./backend/dbConnections'),
     News          = require('./backend/News'),
     Presenters    = require('./backend/Presenters'),
@@ -28,37 +32,42 @@ port = process.env.PORT || 8080,        // set our port
 router = express.Router();
 
 // ===============================BASSIC SERVER SETUP
-    // configure app to use bodyParser()
-    // this will let us get the data from a POST
+// configure app to use bodyParser()
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // ============================Routers for API
 router.use((req, res, next)=>{
-  // do logging
-  console.log('Something is happening.');
+  console.log('Serwer działa poprawnie miśki;)');
   next(); // make sure we go to the next routes and don't stop here
 });
 
-router.get('/', (req,res)=>{
-    res.sendFile(path.join(__dirname + "/public/index.html"));
-
-    //MYSQL Query
-    newsInstant.getChoosenNews(3,(res)=>{
-      console.log(res);
-    });
+router.use('/', index);
+router.use('/api', [news, presenters, proposition]);
+app.use('/', router);
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 
-    // presentersInstant.addPresenter([0, 'jakis', 'roloslaw', 2], (res) =>{
-    //   console.log(res);
-    // });
-
-
-    // newsInstant.addNews([10,15,13], ()=>{});
-    // newsInstant.getAllNews((res)=>{
-    // console.log(res[0]);
-    // });
-});
+// router.get('/', (req,res)=>{
+//     res.sendFile(path.join(__dirname + "/public/index.html"));
+//
+//     //MYSQL Query
+//     newsInstant.getChoosenNews(3,(res)=>{
+//       console.log(res);
+//     });
+//
+//
+//
+//     // presentersInstant.addPresenter([0, 'jakis', 'roloslaw', 2], (res) =>{
+//     //   console.log(res);
+//     // });
+//
+//
+//     // newsInstant.addNews([10,15,13], ()=>{});
+//     // newsInstant.getAllNews((res)=>{
+//     // console.log(res[0]);
+//     // });
+// });
 
 
 //Auth TESTING
@@ -73,8 +82,6 @@ router.get('/admin', (req,res)=>{
 });
 
 
-app.use('/', router);
-app.use('/public', express.static(path.join(__dirname, 'public')));
 app.listen(port, ()=>{
   console.log('Example app listening on port: ' + port)
 });
