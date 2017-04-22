@@ -8,12 +8,9 @@ let express = require('express'),
     path = require('path');
 
 let ErrorClass    = require('./../backend/ErrorClass'),
-    dbCon         = require('./../backend/dbConnections'),
-    Authenticate          = require('./../backend/Authenticate');
-
+    dbCon         = require('./../backend/dbConnections');
 // ================================Class def
-let errClass  = new ErrorClass(dbCon.mysqlConnect),
-    authenticateInstant = new Authenticate(dbCon.mysqlConnect, errClass, crypto);
+let errClass  = new ErrorClass(dbCon.mysqlConnect);
 
 
 router = express.Router();

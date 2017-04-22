@@ -8,7 +8,7 @@ let express = require('express'),
     flash  = require('connect-flash'),
     session = require('express-session'),
     path = require('path'),
-    jwt        = require('jsonwebtoken');
+    jwt  = require('jsonwebtoken');
 
 require('./config/passport')(passport);
 
