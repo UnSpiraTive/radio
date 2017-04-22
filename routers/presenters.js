@@ -16,36 +16,35 @@ let errClass  = new ErrorClass(dbCon.mysqlConnect),
 router = express.Router();
 
 
-// ===========================All news
-// ===========================All news
+// ===========================All
 router.get('/presenters', (req, res, next)=>{
     presentersInstant.getAllPresenters((data)=>{
       res.json(data)
        });
 });
 
-// ===========================ONE news
+// ===========================ONE
 router.get('/presenters/:id', (req, res, next)=>{
     presentersInstant.getChoosenPresenter(req.params.id,(data)=>{
       res.json(data)
        });
 });
 
-// ===========================DELETE ONE news
+// ===========================DELETE ONE
 router.get('/presenters/:id', (req, res, next)=>{
     presentersInstant.deletePresenter(req.params.id,(data)=>{
       res.json(data)
        });
 });
 
-// ===========================ADD ONE news
+// ===========================ADD ONE
 router.post('/presenters/', (req, res, next)=>{
     presentersInstant.addPresenter(req.body,(data)=>{
       res.json(data)
        });
 });
 
-// ===========================UPDATE ONE news
+// ===========================UPDATE ONE 
 router.put('/presenters/:id', (req, res, next)=>{
     presentersInstant.updatePresenter(req.params.id,(data)=>{
       res.json(data)

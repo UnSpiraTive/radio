@@ -16,34 +16,40 @@ let errClass  = new ErrorClass(dbCon.mysqlConnect),
 router = express.Router();
 
 
-// ===========================All news
-// ===========================All news
+
+// ===========================All 
 router.get('/propos', (req, res, next)=>{
     propositionInstant.getAllProposition((data)=>{
       res.json(data)
        });
 });
 
-// ===========================ONE news
+// ===========================ONE
 router.get('/propos/:id', (req, res, next)=>{
     propositionInstant.getChoosenProposition(req.params.id,1,(data)=>{
       res.json(data)
        });
 });
 
-// ===========================DELETE ONE news
+// ===========================DELETE ONE
 router.get('/propos/:id', (req, res, next)=>{
     propositionInstant.deleteProposition(req.params.id,(data)=>{
       res.json(data)
        });
 });
 
-// ===========================ADD ONE news
+// ===========================ADD ONE
 router.post('/propos/', (req, res, next)=>{
     propositionInstant.addProposition(req.body,(data)=>{
       res.json(data)
        });
 });
 
+// ===========================UPDATE ONE
+router.put('/propos/:id', (req, res, next)=>{
+    propositionInstant.acceptProposition(req.params.id,(data)=>{
+      res.json(data)
+       });
+});
 
 module.exports = router;

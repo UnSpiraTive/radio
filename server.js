@@ -1,86 +1,60 @@
 'use strict';
 // ================================Import section
 let express = require('express'),
-    path = require('path'),
+    mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
-    crypto     = require('crypto'),
+    cookieParser = require('cookie-parser'),
+    passport  = require('passport'),
+    flash  = require('connect-flash'),
+    session = require('express-session'),
+    path = require('path'),
     jwt        = require('jsonwebtoken');
+
+require('./config/passport')(passport);
 
 // ================================Custom Importe
 let index         = require('./routers/index'),
+    admin         = require('./routers/admin'),
     news          = require('./routers/news'),
+    login          = require('./routers/login'),
     proposition   = require('./routers/proposition'),
-    presenters    = require('./routers/presenters'),
-    ErrorClass    = require('./backend/ErrorClass'),
-    dbCon         = require('./backend/dbConnections'),
-    News          = require('./backend/News'),
-    Presenters    = require('./backend/Presenters'),
-    Proposition   = require('./backend/Proposition'),
-    Authenticate = require('./backend/Authenticate');
-
-// ================================Class def
-let errClass  = new ErrorClass(dbCon.mysqlConnect),
-    newsInstant = new News(dbCon.mysqlConnect, errClass),
-    presentersInstant  = new Presenters(dbCon.mysqlConnect, errClass),
-    propositionInstant  = new Proposition(dbCon.mysqlConnect, errClass),
-    authenticateInstant = new Authenticate(dbCon.mysqlConnect, errClass, crypto);
-
+    presenters    = require('./routers/presenters');
 
 // ================================Variable section
 let app = express(),
-port = process.env.PORT || 8080,        // set our port
-router = express.Router();
+port = process.env.PORT || 8080;
+
+
+//=================================Mongoose configuration
+mongoose.connect('mongodb://localhost/radio');
+mongoose.connection.once('open', function(){
+        console.log('Connection has been made, now make fireworks...');
+    }).on('error', function(error){
+        console.log('Connection error:', error);
+    });
 
 // ===============================BASSIC SERVER SETUP
-// configure app to use bodyParser()
+app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// app.set('view engine', 'ejs'); // set up ejs for templating
+
+// required for passport
+app.use(session({ secret: 'pas123', resave: true, saveUninitialized: true })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+require('./routers/login.js')(passport);
+
 // ============================Routers for API
-router.use((req, res, next)=>{
-  console.log('Serwer działa poprawnie miśki;)');
-  next(); // make sure we go to the next routes and don't stop here
-});
-
-router.use('/', index);
-router.use('/api', [news, presenters, proposition]);
-app.use('/', router);
-app.use('/public', express.static(path.join(__dirname, 'public')));
-
-
-// router.get('/', (req,res)=>{
-//     res.sendFile(path.join(__dirname + "/public/index.html"));
-//
-//     //MYSQL Query
-//     newsInstant.getChoosenNews(3,(res)=>{
-//       console.log(res);
-//     });
-//
-//
-//
-//     // presentersInstant.addPresenter([0, 'jakis', 'roloslaw', 2], (res) =>{
-//     //   console.log(res);
-//     // });
-//
-//
-//     // newsInstant.addNews([10,15,13], ()=>{});
-//     // newsInstant.getAllNews((res)=>{
-//     // console.log(res[0]);
-//     // });
-// });
-
-
-//Auth TESTING
-router.get('/admin', (req,res)=>{
-  res.send("HELLO You're: ");
-
-  authenticateInstant.getUser('admin', 'admins', (res)=>{
-    console.log(res);
-  });
-
-
-});
-
+app.use('/', [index, admin]);
+app.use('/api', [news, presenters, proposition, login]);
+app.route('/*').get(function(req, res) {
+     res.sendFile(path.join(__dirname + '/public/index.html'));
+   });
 
 app.listen(port, ()=>{
   console.log('Example app listening on port: ' + port)
