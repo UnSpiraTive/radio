@@ -1,6 +1,7 @@
 'use strict';
 // ================================Import section
 let express = require('express'),
+    app = express(),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
@@ -21,9 +22,13 @@ let index         = require('./routers/index'),
     presenters    = require('./routers/presenters');
 
 // ================================Variable section
-let app = express(),
-port = process.env.PORT || 8080;
+let port = process.env.PORT || 8080;
 
+let server = app.listen(port, ()=>{
+  console.log('Example app listening on port: ' + port)
+});
+
+let io = require('socket.io').listen(server);
 
 //=================================Mongoose configuration
 mongoose.connect('mongodb://localhost/radio');
@@ -32,6 +37,21 @@ mongoose.connection.once('open', function(){
     }).on('error', function(error){
         console.log('Connection error:', error);
     });
+
+//=================================socketIO
+io.on('connection', (socket)=>{
+    console.log('socketIO is working..');
+
+//Test IO
+socket.on('send-message', (data) => {
+    console.log(data.text);
+    io.emit('message-received', data);
+  });
+
+
+});
+
+
 
 // ===============================BASSIC SERVER SETUP
 app.use('/public', express.static(path.join(__dirname, 'public')));
@@ -55,7 +75,3 @@ app.use('/api', [news, presenters, proposition, login]);
 app.route('/*').get(function(req, res) {
      res.sendFile(path.join(__dirname + '/public/index.html'));
    });
-
-app.listen(port, ()=>{
-  console.log('Example app listening on port: ' + port)
-});
