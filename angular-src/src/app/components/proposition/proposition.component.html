@@ -1,0 +1,51 @@
+<div *ngFor="let prop of propos">
+
+  <div class='propozycja'>
+  			<div class='titleP'>{{prop['s_title']}} - {{prop['s_author']}}</div>
+  			<div id="videoLike{{prop['s_id']}}" (click)='likeup()' class='polub'></div>
+        <div class='licznikP'>{{prop['s_count']}}</div>
+  			<div class='watchP' (click)="video(prop['s_id'])" ></div>
+  </div>
+
+  <div class='playVideo' id="video{{prop['s_id']}}" [ngStyle]="{'display': displayValue}">
+  		<iframe width='80%'  height='350px' style='margin: 30px 100px;'
+         allowfullscreen='true' allowscriptaccess='always' quality='high'
+         bgcolor='#000000' name='playerid' frameborder="0"
+         [src]="'https://www.youtube.com/embed/' + prop.s_link | safeUrl">
+      </iframe>
+  </div>
+
+</div>
+
+    <div id="addPropo">
+  	<h2>Dodaj wlasną propozycję!</h2>
+  	<fieldset>
+  		<form action="captcha/captcha.php" method='post' id='formPropo'>
+  		<div>
+  			<label for="songTitle">Tytuł utworu: </label>
+  			<input type="text" id='songTitle' name='songTitle' />
+  			<div id="isongTitle"></div>
+  		</div>
+
+  		<div>
+  			<label for="songAuthor">Autor: </label>
+  			<input type="text" id='songAuthor' name='songAuthor' />
+  			<div id="isongAuthor"></div>
+  		</div>
+
+  		<div>
+  			<label for="songLink">Link do youtube.com: </label>
+  			<input type="text" id='songLink' name='songLink' />
+  			<div id="isongLink"></div>
+  		</div>
+  		<div>
+  			 <div class="ajax-fc-container">You must enable javascript to see captcha here!</div>
+
+
+  			<input type="reset"/>
+  			<input type="submit" name='addPropozycje' id='addPropozycje' value='Dodaj propozycje'/>
+  		</div>
+
+  		</form>
+  	</fieldset>
+  </div>

@@ -4,9 +4,10 @@ class Proposition {
     this.errClass = errClass;
   }
 
-getAllProposition(callback){
+getAllProposition(callback, accept = 1){
+  this.accept = accept;
   this.dbCon.getConnection((er,tempCon)=>{
-    (er) ? this.errClass.mysqlError(er, tempCon) : tempCon.query("SELECT * FROM propozycja ORDER BY s_count DESC", (er, raws, fields)=>{
+    (er) ? this.errClass.mysqlError(er, tempCon) : tempCon.query("SELECT * FROM propozycja WHERE s_accept = ? ORDER BY s_count DESC", [this.accept], (er, raws, fields)=>{
       (er) ? this.errClass.mysqlError(er, tempCon) : (
         tempCon.release(),
         callback(raws)

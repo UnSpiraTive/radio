@@ -1,13 +1,16 @@
 //npm i @types/socket.io-client --save-dev
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
+import {ConfiguereService} from './configure.service';
 
 @Injectable()
 export class SocketService {
   socket: SocketIOClient.Socket;
+  conf: ConfiguereService;
 
   constructor() {
-    this.socket = io.connect('http://localhost:8080');
+    this.conf = new ConfiguereService();
+    this.socket = io.connect(this.conf.host);
   }
 
   on(eventName: any, callback: any) {

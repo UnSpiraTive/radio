@@ -2,24 +2,25 @@
 // ================================Import section
 let express = require('express'),
     app = express(),
+    passport  = require('passport'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
-    passport  = require('passport'),
-    flash  = require('connect-flash'),
     session = require('express-session'),
     path = require('path'),
+    cors = require('cors'),
     jwt  = require('jsonwebtoken');
 
-require('./config/passport')(passport);
+
 
 // ================================Custom Importe
 let index         = require('./routers/index'),
-    admin         = require('./routers/admin'),
     news          = require('./routers/news'),
     login          = require('./routers/login'),
     proposition   = require('./routers/proposition'),
     presenters    = require('./routers/presenters');
+
+    // users = require('./routers/admin.js');
 
 // ================================Variable section
 let port = process.env.PORT || 8080;
@@ -28,6 +29,7 @@ let server = app.listen(port, ()=>{
   console.log('Example app listening on port: ' + port)
 });
 
+const admin         = require('./routers/admin');
 let io = require('socket.io').listen(server);
 
 //=================================Mongoose configuration
@@ -39,35 +41,59 @@ mongoose.connection.once('open', function(){
     });
 
 //=================================socketIO
+let chat = require('./routers/models/chat');
+
+
 io.on('connection', (socket)=>{
     console.log('socketIO is working..');
 
-//Test IO
-socket.on('send-message', (data) => {
-    console.log(data.text);
-    io.emit('message-received', data);
+socket.on('getMSG', (zm)=>{
+  chat.find((er, dane)=>{
+    if (er) throw er;
+    io.emit('message-received', dane);
   });
+});
 
+//Remove msg
+socket.on('remove-msg', (id)=>{
+  chat.remove({_id: id}, (er)=>{
+    if(er) throw er;
 
+    chat.find((er, result)=>{
+      if (er) throw er;
+      io.emit('update-chat-view', result);
+    });
+  });
+});
+
+//Add msg
+socket.on('send-message', (data) => {
+    let dane = new chat(data[0]);
+    dane.save((er, res)=>{
+    if (er) throw er;
+      chat.find((er, result)=>{
+        if (er) throw er;
+        io.emit('update-chat-view', result);
+      });
+    });
+
+  });
 });
 
 
-
 // ===============================BASSIC SERVER SETUP
+app.use(cors());
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// app.set('view engine', 'ejs'); // set up ejs for templating
-
-// required for passport
-app.use(session({ secret: 'pas123', resave: true, saveUninitialized: true })); // session secret
+//Passport
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(passport.session());
 
-require('./routers/login.js')(passport);
+require('./config/passport')(passport);
+
 
 // ============================Routers for API
 app.use('/', [index, admin]);
