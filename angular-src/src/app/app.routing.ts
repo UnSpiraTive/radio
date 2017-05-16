@@ -8,13 +8,10 @@ import {PropositionComponent} from './components/proposition/proposition.compone
 import {ChatComponent} from './components/chat/chat.component';
 import {ContactComponent} from './components/contact/contact.component';
 import {AdminComponent} from './components/admin/admin.component';
-<<<<<<< HEAD
 import {LoginComponent} from './components/login/login.component';
 
 import {AuthGuard} from './auth.guard';
 
-=======
->>>>>>> refs/remotes/origin/master
 
 
 const appRoutes : Routes = [
@@ -40,16 +37,12 @@ const appRoutes : Routes = [
     },
     {
       path: 'admin',
-<<<<<<< HEAD
       component: AdminComponent,
       canActivate: [AuthGuard]
     },
     {
       path: 'login',
       component: LoginComponent
-=======
-      component: AdminComponent
->>>>>>> refs/remotes/origin/master
     }
 ];
 

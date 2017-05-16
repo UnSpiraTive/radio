@@ -13,6 +13,7 @@ export class PresentersComponent implements OnInit {
   tlo: String;
   display: String;
   response: String;
+  border:String;
 
   constructor(private _presentersService: PresentersService) {
     this.display = "none";
@@ -37,10 +38,12 @@ export class PresentersComponent implements OnInit {
           this.response = res.msg;
           this.display = "block"
           this.tlo = "green";
+          this.border="1px solid green";
         }else{
           this.response = res.msg;
           this.display = "block"
           this.tlo = "red";
+          this.border="1px solid red";
         }
         setTimeout(()=>{
           this.display = "none";
@@ -49,6 +52,25 @@ export class PresentersComponent implements OnInit {
     });
   }
 
-  likeDown(){}
+  likeDown(id){
+    this._presentersService.likeDownCheck(id).subscribe((res) => {
+        if(res.success == true){
+          this.Fpresenters = res.newPresenter;
+          this.response = res.msg;
+          this.display = "block"
+          this.tlo = "green";
+          this.border="1px solid green";
+        }else{
+          this.response = res.msg;
+          this.display = "block"
+          this.tlo = "red";
+          this.border="1px solid red";
+        }
+        setTimeout(()=>{
+          this.display = "none";
+         }, 3000);
+
+    });
+  }
 
 }

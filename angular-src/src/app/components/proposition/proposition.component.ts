@@ -14,6 +14,10 @@ import { SafeUrlPipe } from '../../services/safe-url.service';
 export class PropositionComponent implements OnInit {
   propos: Array<String>;
   displayValue: String;
+  tlo: String;
+  display: String;
+  response: String;
+  border:String;
 
   constructor(private _propositionService: PropositionService, public safeUrl: SafeUrlPipe) {
       this.displayValue = "none";
@@ -36,7 +40,26 @@ export class PropositionComponent implements OnInit {
     (<HTMLInputElement>document.getElementById(id)).style.display = disp;
    }
 
+   likeUpProp(id){
+     this._propositionService.likeUpProposition(id).subscribe((res) => {
+         if(res.success == true){
+           this.propos = res.newProposition;
+           this.response = res.msg;
+           this.display = "block"
+           this.tlo = "green";
+           this.border="1px solid green";
+         }else{
+           this.response = res.msg;
+           this.display = "block"
+           this.tlo = "red";
+           this.border="1px solid red";
+         }
+         setTimeout(()=>{
+           this.display = "none";
+          }, 3000);
 
+     });
+   }
 
 
 

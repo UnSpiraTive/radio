@@ -468,7 +468,6 @@ body {
   -webkit-box-shadow: 2px 2px 10px #000000;
   box-shadow: 2px 2px 10px #000000;
 }
-<<<<<<< HEAD
 
 .clearBG {
   display: table-cell;
@@ -481,13 +480,6 @@ body {
 }
 .example {
   display: block;
-=======
-.players {
-  display: table-row;
-}
-.example {
-  display: table-cell;
->>>>>>> refs/remotes/origin/master
   text-align: center;
 }
 .przerwa {

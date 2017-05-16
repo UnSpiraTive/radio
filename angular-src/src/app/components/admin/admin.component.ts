@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
-=======
->>>>>>> refs/remotes/origin/master
 
 @Component({
   selector: 'app-admin',
@@ -12,7 +9,6 @@ import {Router} from '@angular/router';
 })
 export class AdminComponent implements OnInit {
 
-<<<<<<< HEAD
   constructor(
     private _AuthService: AuthService,
     private router:Router
@@ -23,9 +19,6 @@ export class AdminComponent implements OnInit {
   this.router.navigate(['/login']);
   return false;
 }
-=======
-  constructor() { }
->>>>>>> refs/remotes/origin/master
 
   ngOnInit() {
   }
