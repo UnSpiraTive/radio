@@ -7,6 +7,7 @@
 /app/**/*.js.map
 
 # dependencies
+/angular-src/node-modules
 /node_modules
 /bower_components
 
