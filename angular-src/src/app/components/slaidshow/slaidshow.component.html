@@ -1,0 +1,74 @@
+<!-- <div id='slaid' [ngStyle]="{'width': innerWidth, 'height': innerHeight, 'display': displayValue}"> -->
+
+<div class="break"></div>
+<div id="containerBody">
+
+<div *ngIf="propos?.length < 1;" id='boxSlideShow'>
+  <div id='boxPrevious'>
+						<div id='previous'> < </div>
+					</div>
+					<div id='boxStar'>
+
+						<div id='square'>
+							<div id='place'></div>
+						</div>
+
+						<div id='content'>
+							<div class='title'>Niestety nie istnieja żadne propozycje.</div>
+							<div class='autor'>Prosze spróbować pózniej</div>
+							<div id='package'>
+								<div class='like'></div><div class='count'> :( </div>
+								<!-- <div id='watch' title='watch this films' onclick=\"alert('Brak Filmu')\"></div> -->
+								<div id='watch' title='watch this films'></div>
+							</div>
+						</div>
+					</div>
+					<div id='boxNext'>
+						<div id='next'> > </div>
+			</div>
+
+        </div>
+
+        <div *ngIf="propos?.length > 0;" id='boxSlideShow'>
+      					<div id='boxPrevious' (click)='clickClient(currentSong-1)'>
+      						<div id='previous'> < </div>
+      					</div>
+      					<div id='boxStar'>
+
+      						<div id='square'>
+      							<div id='place'></div>
+      						</div>
+
+      						<div id='content'>
+      							<div class='title'>{{propos[currentSong]['s_title']}}</div>
+      							<div class='autor'>{{propos[currentSong]['s_author']}}</div>
+      							<div id='package'>
+      								<div class='like'></div><div class='count'>{{propos[currentSong]['s_count']}}</div>
+                      <div id='watch' title='watch this films' (click)="slaidYT(propos[currentSong]['s_link'])"></div>
+                      <!-- <a href="https://www.youtube.com/watch?v={{propos[currentSong]['s_link']}}">
+                        <div id='watch' title='watch this films'></div>
+                      </a> -->
+                  </div>
+                </div>
+      					</div>
+      					<div id='boxNext'  (click)='clickClient(currentSong+1)'>
+      						<div id='next'> > </div>
+      					</div>
+
+                <div id='slaid' [ngStyle]="{'width': innerWidth, 'height': innerHeight, 'display': block}">
+                    <div id='slaidPasek' (click)="slaidClose()">
+                      <div (click)='slaidClose()' id='slaidClose'></div>
+                    </div>
+                    <div class='slaidBreak'></div>
+                    <div id='watchFilms'>
+                      <iframe id='player' allowfullscreen='true' allowscriptaccess='always'
+                        quality='high' bgcolor='#' name='playerid' frameborder="0"
+                        [src]="'https://www.youtube.com/embed/' + propos[currentSong].s_link | safeUrl">
+                    </iframe>
+                  </div>
+                </div>
+      </div>
+
+</div>
+<div class="clear"></div>
+<div class="break"></div>

@@ -1,0 +1,26 @@
+#slaid {
+  background: url(img/slaidBG.png) repeat;
+  display: none;
+  position: fixed;
+  z-index: 10;
+}
+#slaid #slaidPasek {
+  cursor: pointer;
+}
+#slaid #slaidPasek #slaidClose {
+  float: right;
+  width: 24px;
+  height: 24px;
+  margin-right: 24px;
+  background: url(img/close.png) no-repeat;
+}
+#slaid #watchFilms{
+  margin: 0 auto;
+  -moz-box-shadow: 2px 2px 10px #000000;
+  -webkit-box-shadow: 2px 2px 10px #000000;
+  box-shadow: 2px 2px 10px #000000;
+}
+
+#player{
+  margin-left: 3%;
+}

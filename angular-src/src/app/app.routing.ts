@@ -3,7 +3,15 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {MainComponent} from './components/main/main.component';
 import {HeaderComponent} from './components/header/header.component';
+import {PresentersComponent} from './components/presenters/presenters.component';
+import {PropositionComponent} from './components/proposition/proposition.component';
 import {ChatComponent} from './components/chat/chat.component';
+import {ContactComponent} from './components/contact/contact.component';
+import {AdminComponent} from './components/admin/admin.component';
+import {LoginComponent} from './components/login/login.component';
+
+import {AuthGuard} from './auth.guard';
+
 
 
 const appRoutes : Routes = [
@@ -14,6 +22,27 @@ const appRoutes : Routes = [
     {
       path: 'chat',
       component: ChatComponent
+    },
+    {
+      path: 'presenters',
+      component: PresentersComponent
+    },
+    {
+      path: 'proposition',
+      component: PropositionComponent
+    },
+    {
+      path: 'contact',
+      component: ContactComponent
+    },
+    {
+      path: 'admin',
+      component: AdminComponent,
+      canActivate: [AuthGuard]
+    },
+    {
+      path: 'login',
+      component: LoginComponent
     }
 ];
 

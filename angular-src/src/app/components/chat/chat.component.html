@@ -9,11 +9,18 @@
             </div>
             <div class="panel-body">
                 <div class="msg-container-base">
-                    <div class="row msg-container" *ngFor="let message of messages">
+                    <div class="row msg-container" *ngFor="let message of messages[0]">
+                      <div [ngStyle]="{'cursor': 'pointer'}" (click)="removeMSG(message._id)" *ngIf="_AuthService.logedIn()">
+                        X
+                      </div>
                         <div class="col-md-12 col-xs-12">
                             <div class="chat-msg"
                                     [ngClass]="{'chat-msg-sent': selfAuthored, 'chat-msg-recieved': !selfAuthored}">
 
+                            <img *ngIf="avatar"
+                                      class="profile"
+                                      [ngClass]="{'pull-right': selfAuthored, 'pull-left': !selfAuthored}"
+                                      [src]="avatar" />
 
 
                                 <p class="message-text">{{ message.text }}</p>
@@ -36,6 +43,11 @@
                                       placeholder="Enter message"
                                       name= "messageText"
                                       [(ngModel)]="messageText" />
+                            <input type="text"
+                                      class="form-control input-sm"
+                                      placeholder="Enter username"
+                                      name= "username"
+                                      [(ngModel)]="username" />
                             <span class="input-group-btn">
                             <input type="submit" class="btn btn-sm chat-submit-button" />
                         </span>

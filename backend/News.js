@@ -9,7 +9,7 @@ class News {
 
 getAllNews(callback){
     this.dbCon.getConnection((er, tempCon) => {
-      (er) ? this.errClass.mysqlError(er, tempCon) : tempCon.query("SELECT * FROM news ORDER BY n_id DESC", (er, rows, fields) => {
+      (er) ? this.errClass.mysqlError(er, tempCon) : tempCon.query("SELECT * FROM news ORDER BY n_id ASC", (er, rows, fields) => {
            (er) ? this.errClass.mysqlError(er, tempCon) : (
              tempCon.release(),
              callback(rows)

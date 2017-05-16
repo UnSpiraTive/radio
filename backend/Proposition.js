@@ -4,9 +4,10 @@ class Proposition {
     this.errClass = errClass;
   }
 
-getAllProposition(callback){
+getAllProposition(callback, accept = 1){
+  this.accept = accept;
   this.dbCon.getConnection((er,tempCon)=>{
-    (er) ? this.errClass.mysqlError(er, tempCon) : tempCon.query("SELECT * FROM propozycja ORDER BY s_count DESC", (er, raws, fields)=>{
+    (er) ? this.errClass.mysqlError(er, tempCon) : tempCon.query("SELECT * FROM propozycja WHERE s_accept = ? ORDER BY s_count DESC", [this.accept], (er, raws, fields)=>{
       (er) ? this.errClass.mysqlError(er, tempCon) : (
         tempCon.release(),
         callback(raws)
@@ -63,6 +64,60 @@ acceptProposition(id, callback){
     });
   });
 }
+
+getPropositionId(idProp, requestIp, callback){
+  this.id = idProp;
+  this.requestIp = requestIp;
+  this.dbCon.getConnection((er, tempCon) => {
+            (er) ? this.errClass.mysqlError(er,tempCon) : tempCon.query("SELECT COUNT(*) as howMany FROM propozycja_ip WHERE ip_p_id = ? AND ip_ip = ?", [this.id, this.requestIp] , (er, rows, fields) => {
+              (er) ? this.errClass.mysqlError(er,tempCon) : (
+            tempCon.release(),
+            callback(rows)
+          )
+        });
+    });
+  }
+
+  insertPropositionId(idProp, requestIp, callback){
+    this.idProp = idProp;
+    this.requestIp = requestIp;
+    this.dbCon.getConnection((er, tempCon) => {
+              (er) ? this.errClass.mysqlError(er,tempCon) : tempCon.query("INSERT INTO propozycja_ip (ip_p_id, ip_ip) VALUES (?, ?)", [this.idProp, this.requestIp] , (er, res) => {
+                (er) ? this.errClass.mysqlError(er,tempCon) : (
+              tempCon.release(),
+              callback(res)
+            )
+          });
+      });
+    }
+
+
+  updatePropositionVoice(id, count, callback){
+      this.idPres = id;
+      this.count = count;
+      this.dbCon.getConnection((er,tempCon)=>{
+        (er) ? this.errClass.mysqlError(er, tempCon) : tempCon.query("UPDATE propozycja SET s_count = ? WHERE s_id = ?", [this.count, this.idPres],(er,result) =>{
+            (er) ? this.errClass.mysqlError(er, tempCon) : (
+              tempCon.release(),
+              callback(result)
+            )
+         });
+      });
+    }
+
+    getChoosenProposition(id, callback){
+      this.id = id;
+      this.dbCon.getConnection((er, tempCon) => {
+        (er) ? this.errClass.mysqlError(er,tempCon) : tempCon.query("SELECT * FROM propozycja WHERE s_id = " + this.dbCon.escape(this.id) , (er, rows, fields) => {
+              (er) ? this.errClass.mysqlError(er,tempCon) : (
+                tempCon.release(),
+                callback(rows)
+              )
+            });
+        });
+      }
+
+
 
 }
 
