@@ -50,7 +50,11 @@ io.on('connection', (socket)=>{
 socket.on('getMSG', (zm)=>{
   chat.find((er, dane)=>{
     if (er) throw er;
+<<<<<<< HEAD
     io.emit('update-chat-view', dane);
+=======
+    io.emit('message-received', dane);
+>>>>>>> refs/remotes/origin/master
   });
 });
 
@@ -68,7 +72,11 @@ socket.on('remove-msg', (id)=>{
 
 //Add msg
 socket.on('send-message', (data) => {
+<<<<<<< HEAD
     let dane = new chat(data);
+=======
+    let dane = new chat(data[0]);
+>>>>>>> refs/remotes/origin/master
     dane.save((er, res)=>{
     if (er) throw er;
       chat.find((er, result)=>{

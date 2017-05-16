@@ -3,10 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { SafeUrlPipe } from './services/safe-url.service';
+<<<<<<< HEAD
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './auth.guard';
 
 
+=======
+>>>>>>> refs/remotes/origin/master
 
 import { AppComponent } from './components/app.component';
 import { ChatComponent } from './components/chat/chat.component';
