@@ -68,7 +68,7 @@ socket.on('remove-msg', (id)=>{
 
 //Add msg
 socket.on('send-message', (data) => {
-    let dane = new chat(data[0]);
+    let dane = new chat(data);
     dane.save((er, res)=>{
     if (er) throw er;
       chat.find((er, result)=>{

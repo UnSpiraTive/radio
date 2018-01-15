@@ -6,9 +6,9 @@ let mysqlConnect = mysql.createPool({
   connectionLimit: 50,
   host: 'localhost',
   user: 'root',
-  password: 'P@ssw0rd',
+  password: '',
   database: 'radiowezel',
-  charset: "utf8_general_ci"
+  charset: "utf8_polish_ci"
 });
 
 

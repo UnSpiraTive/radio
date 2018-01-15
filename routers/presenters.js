@@ -37,15 +37,14 @@ router.get('/presenters/:id', (req, res, next)=>{
 });
 
 // ===========================DELETE ONE
-router.get('/presenters/:id', (req, res, next)=>{
-    presentersInstant.deletePresenter(req.params.id,(data)=>{
+router.delete('/presenters/', (req, res, next)=>{
+    presentersInstant.deletePresenter(req.body.id,(data)=>{
       res.json(data)
        });
 });
 
 // ===========================ADD ONE
 router.post('/presenters/', (req, res, next)=>{
-  console.log(req.body + "aaaaaaa");
     presentersInstant.addPresenter(req.body,(data)=>{
       res.json(data)
        });

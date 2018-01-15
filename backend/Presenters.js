@@ -129,7 +129,7 @@ addPresenter(tabOfPresenterData, callback){
     this.dataTab = tabOfPresenterData;
     // this.dataTab = [0, 'jakis', 'roloslaw', 2]; //test Data
     this.dbCon.getConnection((er, tempCon)=>{
-              (er) ? this.errClass.mysqlError(er, tempCon) : tempCon.query("INSERT INTO prezenterzy (p_avatar, p_name, p_count) VALUES (?,?,?)",[this.dataTab[1],this.dataTab[2],this.dataTab[3]], (er,result) =>{
+              (er) ? this.errClass.mysqlError(er, tempCon) : tempCon.query("INSERT INTO prezenterzy (p_avatar, p_name, p_count) VALUES (?,?,?)",[this.dataTab[1],this.dataTab[0],0], (er,result) =>{
               (er) ? this.errClass.mysqlError(er, tempCon) : (
               tempCon.release(),
               callback(result)
@@ -141,7 +141,7 @@ addPresenter(tabOfPresenterData, callback){
   deletePresenter(id, callback){
     this.presenter_id = id;
     this.dbCon.getConnection((er,tempCon)=>{
-      (er) ? this.errClass.mysqlError(er, tempCon) : tempCon.query("DELET FROM prezenterzy WHERE = " + this.dbCon.escape(this.presenter_id), (er, result) => {
+      (er) ? this.errClass.mysqlError(er, tempCon) : tempCon.query("DELETE FROM prezenterzy WHERE p_id = ?",[this.presenter_id], (er, result) => {
         (er) ? this.errClass.mysqlError(er, tempCon) : (
           tempCon.release(),
           callback(result)

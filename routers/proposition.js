@@ -1,6 +1,6 @@
 //===========================IMPORT MODULE
-let express = require('express');
-
+let express = require('express'),
+  mac = require('getmac');
 
 //===========================CUSTOM MODULE
 let ErrorClass    = require('./../backend/ErrorClass'),
@@ -55,20 +55,23 @@ router.put('/propos/:id', (req, res, next)=>{
 
 
 router.post('/propos/:id', (req, res, next)=>{
+  this.id = parseInt(req.body.id);
+  this.znak = parseInt(req.body.znak);
   mac.getMac((er, macAdd)=>{
     if (er) throw er;
-  presentersInstant.getPropositionId(req.params.id, macAdd, (data)=>{
-    console.log(this.znak);
+  propositionInstant.getPropositionId(this.id, macAdd, (data)=>{
       if(data[0].howMany < 1 ){
-            presentersInstant.insertPropositionId(req.params.id, macAdd,(result)=>{
-              presentersInstant.getChoosenProposition(req.params.id, (presenterPCount)=>{
-                presentersInstant.updatePropositionVoice(req.params.id, (presenterPCount[0].p_count + 1), (resultUpdate)=>{
-                  res.json({"success": true, "msg": "Glos został oddany", "idProp": req.params.id, "ipProp": macAdd });
+            propositionInstant.insertPropositionId(this.id, macAdd,(result)=>{
+              propositionInstant.getChoosenProposition(this.id, (presenterPCount)=>{
+                propositionInstant.updatePropositionVoice(this.id, (presenterPCount[0].s_count + 1), (resultUpdate)=>{
+                  propositionInstant.getAllProposition((newProposition)=>{
+                    res.json({"success": true, "msg": "Glos został oddany", "idProp": this.id, "ipProp": macAdd, newProposition: newProposition });
+                  });
                 });
               });
             });
       }else{
-        res.json({"success": false, "msg": "Glos z tego IP został już oddany", "idProp": req.params.id, "ipProp": macAdd });
+        res.json({"success": false, "msg": "Glos z tego IP został już oddany", "idProp": this.id, "ipProp": macAdd });
       }
     });
   });
