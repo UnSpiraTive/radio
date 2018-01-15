@@ -1,0 +1,33 @@
+<div id='menuAdmin'>
+	<h3>Menu:</h3>
+	<ul>
+		<li><a [routerLink]="['/admin/presenters/']">Prezenterzy zarządzaj</a></li>
+		<li><a [routerLink]="['/admin/proposition/']">Propozycje zarządzaj</a></li>
+		<li><a [routerLink]="['/admin/ramowka/']">Ramowka zarządzaj</a></li>
+		<li><a [routerLink]="['/admin/news/']">News zarządzaj</a></li>
+		<li><a [routerLink]="['#']" (click)="onLogoutClick()" >Wyloguj</a></li>
+	</ul>
+</div>
+
+<h2>Dodaj Prezentera</h2>
+<fieldset class='bordernone'>
+	<form action="" method='post' id='adminPrezenterAdd' (submit)="DodajPrezentera()">
+		<div>
+			<label for="namePrezenter">Podaj imie i nazwisko</label><input type="text" [(ngModel)]="namePrezenter" name='namePrezenter' id='namePrezenter'/>
+		</div>
+		<div>
+			<label for="avatar">Podaj link do zdj lub pozostaw puste</label><input type="text" [(ngModel)]="avatarPrezenter" name='avatarPrezenter' id='avatarPrezenter'>
+		</div>
+		<input type="submit" name='addPrezenter' value='Dodaj prezentera'>
+		<input type="reset">
+	</form>
+</fieldset>
+
+<h2>Usun Prezentera: </h2>
+  <div *ngFor="let pres of Fpresenters ">
+		{{pres.p_name}}
+		<a [routerLink]="['#']" (click)=usunPrezentera(pres.p_id)>usun</a>
+	</div>
+
+
+    <div class='clear'></div>

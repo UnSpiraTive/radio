@@ -1,0 +1,31 @@
+<div id='menuAdmin'>
+	<h3>Menu:</h3>
+	<ul>
+		<li><a [routerLink]="['/admin/presenters/']">Prezenterzy zarządzaj</a></li>
+		<li><a [routerLink]="['/admin/proposition/']">Propozycje zarządzaj</a></li>
+		<li><a [routerLink]="['/admin/ramowka/']">Ramowka zarządzaj</a></li>
+		<li><a [routerLink]="['/admin/news/']">News zarządzaj</a></li>
+		<li><a [routerLink]="['#']" (click)="onLogoutClick()" >Wyloguj</a></li>
+	</ul>
+</div>
+
+<div id="zarzadzanie">
+Zmień plan dnia:
+
+<fieldset id='ramowkaEdycja'>
+	<form action="" method='get'>
+		<select name='dzien'>
+			<option value="1">Poniedzialek</option>
+			<option value="2">Wtorek</option>
+			<option value="3">Sroda</option>
+			<option value="4">Czwartek</option>
+			<option value="5">piatek</option>
+		</select>
+		<input type="submit" value='Zatwierdz' name='change'>
+	</form>
+</fieldset>
+
+<a href='#'>Usun cala ramowke</a>
+</div>
+
+    <div class='clear'></div>

@@ -1,0 +1,18 @@
+<!-- <div id='slaid' [ngStyle]="{'width': innerWidth, 'height': innerHeight, 'display': displayValue}"> -->
+<div id='slaid' [ngStyle]="{'width': innerWidth, 'height': innerHeight}">
+    <div id='slaidPasek' [ngStyle]="{'width': innerWidth, 'height': innerHeight}" (click)="slaidClose()">
+      <div (click)='slaidClose()' id='slaidClose'></div>
+    </div>
+    <div class='slaidBreak'></div>
+    <div id='watchFilms'>
+      <iframe id='player' allowfullscreen='true' allowscriptaccess='always'
+        quality='high' bgcolor='#' name='playerid'
+        [src]="'https://www.youtube.com/embed/' + songUrl | safeUrl">
+    </iframe>
+      <!-- <iframe width='80%'  height='350px' style='margin: 30px 100px;'
+         allowfullscreen='true' allowscriptaccess='always' quality='high'
+         bgcolor='#000000' name='playerid' frameborder="0"
+         [src]="'https://www.youtube.com/embed/' + {{prop.s_link}} | safeUrl">
+      </iframe> -->
+  </div>
+</div>

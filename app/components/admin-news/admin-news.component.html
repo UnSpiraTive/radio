@@ -1,0 +1,28 @@
+<div id='menuAdmin'>
+	<h3>Menu:</h3>
+	<ul>
+		<li><a [routerLink]="['/admin/presenters/']">Prezenterzy zarządzaj</a></li>
+		<li><a [routerLink]="['/admin/proposition/']">Propozycje zarządzaj</a></li>
+		<li><a [routerLink]="['/admin/ramowka/']">Ramowka zarządzaj</a></li>
+		<li><a [routerLink]="['/admin/news/']">News zarządzaj</a></li>
+		<li><a [routerLink]="['#']" (click)="onLogoutClick()" >Wyloguj</a></li>
+	</ul>
+</div>
+
+<h2>Dodaj news</h2>
+<fieldset style='border:none;'>
+	<form action="" method='post'>
+		<div>
+			<label for="tresc"><textarea name="tresc" id="tresc" cols="30" rows="10"></textarea></label>
+		</div>
+		<div>
+			<input type="submit" value='Dodaj news' name='addmsg'>
+		</div>
+	</form>
+</fieldset>
+
+
+<h2>Zarzadzanie</h2>
+<p>Tutaj bedzie edycja i usuwanie newsow</p>
+
+    <div class='clear'></div>

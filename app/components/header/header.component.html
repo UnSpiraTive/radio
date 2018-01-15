@@ -1,0 +1,23 @@
+  <div id="header">
+    <div id="logo">
+      <a href="">
+        <h2>Radiowezel
+        <br />
+          L2P2
+           </h2>
+      </a>
+    </div>
+    <div id="baner"></div>
+    <div id="e-commerce">Miejsce na reklame</div>
+    <div id="menu">
+      <ul>
+        <li><a [routerLink]="['/']">Strona Glowna</a></li>
+        <li><a [routerLink]="['presenters']">Prezenterzy</a></li>
+        <li><a [routerLink]="['proposition']">Propozycje</a></li>
+        <li><a [routerLink]="['chat']">Chat</a></li>
+        <li><a [routerLink]="['contact']">Kontakt</a></li>
+        <li><a [routerLink]="['admin']" *ngIf="_AuthService.logedIn()">Admin</a></li>
+        <li><a [routerLink]="['login']" *ngIf="!_AuthService.logedIn()">Zaloguj</a></li>
+      </ul>
+    </div>
+  </div>

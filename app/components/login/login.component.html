@@ -1,0 +1,18 @@
+<div id='panel-content'>
+      <div id='panel-center'>
+        <div id='panel-head'>
+          <div id='panel-top'></div>
+          <div id='panel-bottom'></div>
+        </div>
+        <div id='panel-data'>
+          <fieldset>
+            <form method="post" action="" (submit)="onLoginSubmit()">
+              <input type='text' [(ngModel)]="username" name='username' id='ipanelNick' placeholder="Username" />
+              <input type='password' name='password' [(ngModel)]="password" id='ipanelPass' placeholder="Password" />
+              <input type="submit" value="Login">
+            </form>
+          </fieldset>
+        </div>
+      </div>
+</div>
+    <div class='clear'></div>

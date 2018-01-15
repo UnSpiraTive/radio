@@ -1,0 +1,53 @@
+<div id="prezenterzy">
+  <div [ngStyle]="{'position': 'absolute', 'width': '40%', 'border': border, 'height': '50px', 'text-align' : 'center', 'line-height': '50px',
+  'display' : display, 'margin-left': '350px', 'background' : tlo}"> {{response}}</div>
+    <div *ngFor="let pres of Fpresenters ">
+
+  <div class='contentPre'>
+  <div class='avatar'>
+      <img src="{{pres.p_avatar}}" />
+  </div>
+  <div class='contentTitle'>
+    <div class='topP'>
+        {{pres.p_name}}
+    </div>
+    <div class='bottomP'>
+      <div class='likeit'>
+        <div class='likeE' (click)="likeUp(pres.p_id)"></div>
+      </div>
+      <div class='voiceS'>
+        <div class='divVertical'></div>
+        <div class='nextD'>
+          {{pres.p_count}}
+        </div>
+      </div>
+      <div class='nolike'>
+        <div class='unlikeE' (click)="likeDown(pres.p_id)"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+				<div id="titleRamowka"><h2>Ramowka</h2></div>
+        	<div id="ramowka">
+            <div class="days">
+
+  <div class="day">Poniedzialek</div>
+  <div class="day">Wtorek</div>
+  <div class="day">Sroda</div>
+  <div class="day">Czwartek</div>
+  <div class="day">Piątek</div>
+
+</div>
+
+	<div *ngFor="let day of Fday; let i=index" class='clearBG'>
+			<div *ngFor=" let ram of Framowka; let j=index" class='players'>
+          <div *ngIf="ram.r_d_id==day.d_id">
+					<div *ngIf="!ram.r_name" class='example'></div>
+					<div *ngIf="ram.r_name" class='example'>{{ram.r_name}}</div>
+      </div>
+    </div>
+		</div>
+
+          </div>
+</div>
